@@ -10,7 +10,8 @@ const userCreateValidator = {
         last_name: Joi.string().required(),
         email: Joi.string().email().required(),
         birth_date: Joi.date(),
-        gender: Joi.string().valid('male','female', 'other')
+        gender: Joi.string().valid('male','female', 'other'),
+        password: Joi.string().required(),
     } //schema de validacion
 }
 
@@ -27,10 +28,11 @@ const postCreateValidator = {
 
 router.get('/users',UserController.fetch);
 router.get('/users/:id', UserController.retrieve)
-router.post('/users',celebrate(userCreateValidator) ,UserController.add)
-router.put('/users/:id',celebrate(userCreateValidator), UserController.modify)
+router.post('/users', celebrate(userCreateValidator), UserController.add)
+router.put('/users/:id', celebrate(userCreateValidator), UserController.modify)
 router.delete('/users/:id', UserController.eliminate)
 router.get('/users/:id/posts', UserController.populatedUser)
+
 // posts routes
 router.get('/posts/users',PostController.populatedPosts);
 router.get('/posts',PostController.fetch);

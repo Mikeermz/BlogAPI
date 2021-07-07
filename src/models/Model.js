@@ -29,6 +29,10 @@ class Model{
         return this.db.where({id}).del()
     }
 
+    findByParams(column, query){
+        return this.db.where(column, query)
+    }
+
 }
 
 module.exports = Model;

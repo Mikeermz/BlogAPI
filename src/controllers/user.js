@@ -1,5 +1,6 @@
 // const {findAll,findOne, create, update, delete:remove } = require('../models/users');
 const User = require('../models/users');
+const hashPassword = require('../utils/hashPassword');
 
 module.exports = {
     fetch: (req,res) => {
@@ -14,8 +15,9 @@ module.exports = {
             res.status(400).json(error)
         })  
     },
-    add: (req, res) => {
-        console.log('llegue a el controller')
+    add: async (req, res) => {
+        req.body.password = await hashPassword(req.body.password)
+
         const user = new User();
         user.create(req.body).then((result) => {
             res.status(201).json(result)
