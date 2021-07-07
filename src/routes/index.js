@@ -28,6 +28,7 @@ const postCreateValidator = {
 
 router.get('/users',UserController.fetch);
 router.get('/users/:id', UserController.retrieve)
+router.post('/user/login', UserController.login)
 router.post('/users', celebrate(userCreateValidator), UserController.add)
 router.put('/users/:id', celebrate(userCreateValidator), UserController.modify)
 router.delete('/users/:id', UserController.eliminate)
