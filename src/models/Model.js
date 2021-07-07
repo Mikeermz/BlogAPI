@@ -30,7 +30,7 @@ class Model{
     }
 
     findByParams(column, query){
-        return this.db.where(column, query)
+        return this.db.where(column, query);
     }
 
 }
