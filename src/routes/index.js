@@ -3,6 +3,7 @@ const {celebrate, Joi, Segments} = require('celebrate');
 const router = express.Router();
 const UserController = require('../controllers/user');
 const PostController = require('../controllers/posts');
+const verify = require('../middlewares/verify');
 
 const userCreateValidator = {
     [Segments.BODY] :{
@@ -26,7 +27,7 @@ const postCreateValidator = {
 
 // user routes
 
-router.get('/users',UserController.fetch);
+router.get('/users', verify, UserController.fetch);
 router.get('/users/:id', UserController.retrieve)
 router.post('/user/login', UserController.login)
 router.post('/users', celebrate(userCreateValidator), UserController.add)
