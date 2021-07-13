@@ -1,6 +1,5 @@
 const JWT = require('jsonwebtoken');
-const SECRET_KEY = 'misecreto';
-// const SECRET_KEY = process.env.SECRET_KEY;
+const { SECRET_KEY } = require('../constants/config')
 
 module.exports = ({id, email, gender}) => {
     const PAYLOAD = {

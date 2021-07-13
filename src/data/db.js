@@ -1,9 +1,7 @@
 // aqui vamos a crear la conexion ya  a la BD
 const knex = require('knex');
-
 const knexfile = require('../../knexfile');
-
-const env = process.env.NODE_ENV || 'development';
+const { ENV: env } = require('../constants/config')
 
 const configOptions = knexfile[env];
 
