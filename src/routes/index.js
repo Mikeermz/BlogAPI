@@ -4,17 +4,7 @@ const router = express.Router();
 const UserController = require('../controllers/user');
 const PostController = require('../controllers/posts');
 const verify = require('../middlewares/verify');
-
-const userCreateValidator = {
-    [Segments.BODY] :{
-        first_name: Joi.string().required(),
-        last_name: Joi.string().required(),
-        email: Joi.string().email().required(),
-        birth_date: Joi.date(),
-        gender: Joi.string().valid('male','female', 'other'),
-        password: Joi.string().required(),
-    } //schema de validacion
-}
+const { UserValidator } = require('../validators');
 
 const postCreateValidator = {
     [Segments.BODY] :{
@@ -26,12 +16,11 @@ const postCreateValidator = {
 }
 
 // user routes
-
 router.get('/users', verify, UserController.fetch);
-router.get('/users/:id', verify, UserController.retrieve)
-router.post('/user/login', UserController.login)
-router.post('/users', celebrate(userCreateValidator), UserController.add)
-router.put('/users/:id', verify, celebrate(userCreateValidator), UserController.modify)
+router.get('/users/:id', verify, UserValidator.findOne, UserController.retrieve)
+router.post('/user/login', UserValidator.login ,UserController.login)
+router.post('/users', UserValidator.create, UserController.add)
+router.put('/users/:id', verify, UserValidator.create, UserController.modify)
 router.delete('/users/:id', verify, UserController.eliminate)
 router.get('/users/:id/posts', verify, UserController.populatedUser)
 
